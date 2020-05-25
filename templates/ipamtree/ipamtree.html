@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.fancytree-expander {
+  margin-right: 5px;
+}
+.fa-empty {
+  margin-right: 15px;
+}
+.fancytree-icon {
+  margin-right: 5px;
+}
+
+</style>
+
+ <table id="tree" class="table table-hover table-headings">
+    <colgroup>
+    <col ></col>
+    <col ></col>
+    <col ></col>
+    <col ></col>
+    <col ></col>
+    <col ></col>
+    </colgroup>
+    <thead>
+      <tr> <th></th> <th>Description/Device</th> <th>Status</th> <th>Utilization</th> <th>Site</th> <th>Vlan</th> </tr>
+    </thead>
+  </table>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
+<script src="/static/ipamtree.js"></script>
+
+{% endblock %}
