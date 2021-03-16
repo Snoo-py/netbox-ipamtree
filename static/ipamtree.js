@@ -71,17 +71,17 @@ $(function(){ $("#tree").fancytree({
         glyph: {
           preset: "",
           map: {
-            _addClass: 'fa',
-          error: 'fa-exclamation-triangle',
-          expanderClosed: 'fa-chevron-right',
-          expanderLazy: 'fa-chevron-right',
-          expanderOpen: 'fa-chevron-down',
-          loading: 'fa-empty',
-          noExpander: 'fa-empty',
-          doc: 'fa-info-circle',
-          docOpen: 'fa-info-circle',
-          folder: 'fa-cloud',
-          folderOpen: 'fa-cloud'
+          _addClass: 'mdi',
+          error: 'mdi-exclamation-triangle',
+          expanderClosed: 'mdi-chevron-right',
+          expanderLazy: 'mdi-chevron-right',
+          expanderOpen: 'mdi-chevron-down',
+          loading: 'mdi-empty',
+          noExpander: 'mdi-empty',
+          doc: 'mdi-info-circle',
+          docOpen: 'mdi-info-circle',
+          folder: 'mdi-cloud',
+          folderOpen: 'mdi-cloud'
           }
         },
         source: {url: '/api/plugins/ipam-tree/fancytree/'},
