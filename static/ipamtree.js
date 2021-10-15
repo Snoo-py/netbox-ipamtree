@@ -19,9 +19,6 @@ function UTILIZATION_TEMPLATE(netbox) {
   };
   var utilization = netbox.utilization;
   data = '<div class="progress text-center">\r\n'
-  if (utilization < 30 ) {
-    data += `<span style="font-size: 12px;">${utilization}%</span>\r\n`
-  };
   var width = utilization;
   if (utilization > 100) {
     width = 100;
@@ -32,11 +29,15 @@ function UTILIZATION_TEMPLATE(netbox) {
   } else if (utilization >= 75) {
     progress = 'warning';
   };
-  data += `<div class="progress-bar progress-bar-${progress}" role="progressbar" aria-valuenow="${utilization}" aria-valuemin="0" aria-valuemax="100" style="width: ${width}%">`
+  data += `<div class="progress-bar bg-${progress}" role="progressbar" aria-valuenow="${utilization}" aria-valuemin="0" aria-valuemax="100" style="width: ${width}%">`
   if (utilization >= 30 ) {
     data += `${utilization}%`
+    data += '</div>'
+  } else {
+    data += '</div>'
+    data += `<span style="font-size: 12px;">${utilization}%</span>\r\n`
   };
-  data += '</div></div>';
+  data += '</div>';
   return data;
 };
 
