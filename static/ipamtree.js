@@ -5,9 +5,9 @@ function STATUS_TEMPLATE(netbox) {
     return '—'
   }
   if (netbox.free_ips) {
-    return `<span class="label label-success">Available</span>`;
+    return `<span class="badge bg-success">Available</span>`;
   }
-  return `<span class="label label-${netbox.status_class}">${netbox.status}</span>`;
+  return `<span class="badge bg-${netbox.status_class}">${netbox.status}</span>`;
 };
 
 function UTILIZATION_TEMPLATE(netbox) {

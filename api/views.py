@@ -103,7 +103,7 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
         for s in networks:
             if isinstance(s, tuple):
                 tmp = {
-                    'title': '<span class="label label-success">%s IPs available</a>' % (s[0]),
+                    'title': '<span class="badge bg-success">%s IPs available</a>' % (s[0]),
                     'key': -1,
                     'netbox': {
                         'free_ips': True,
