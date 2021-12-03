@@ -117,7 +117,7 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
             device = None
             device_url = None
             if not prefix:
-                device = s.assigned_object.device or s.assigned_object.virtual_machine if s.assigned_object else None
+                device = s.assigned_object.parent_object if s.assigned_object else None
                 device_url = device.get_absolute_url() if device else None
                 device = str(device)
             tmp = {
