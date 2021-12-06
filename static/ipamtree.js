@@ -10,6 +10,16 @@ function STATUS_TEMPLATE(netbox) {
   return `<span class="badge bg-${netbox.status_class}">${netbox.status}</span>`;
 };
 
+function ROLE_TEMPLATE(netbox) {
+  if (!netbox) {
+    return '—'
+  };
+  if (netbox.prefix || netbox.free_ips) {
+    return '—'
+  };
+  return `<span class="badge bg-${netbox.role_class}">${netbox.role}</span>`;
+};
+
 function UTILIZATION_TEMPLATE(netbox) {
   if (!netbox) {
     return '—'
@@ -72,17 +82,17 @@ $(function(){ $("#tree").fancytree({
         glyph: {
           preset: "",
           map: {
-          _addClass: 'mdi',
-          error: 'mdi-exclamation-triangle',
-          expanderClosed: 'mdi-chevron-right',
-          expanderLazy: 'mdi-chevron-right',
-          expanderOpen: 'mdi-chevron-down',
-          loading: 'mdi-empty',
-          noExpander: 'mdi-empty',
-          doc: 'mdi-info-circle',
-          docOpen: 'mdi-info-circle',
-          folder: 'mdi-cloud',
-          folderOpen: 'mdi-cloud'
+            _addClass: 'mdi',
+            error: 'mdi-exclamation-triangle',
+            expanderClosed: 'mdi-chevron-right',
+            expanderLazy: 'mdi-chevron-right',
+            expanderOpen: 'mdi-chevron-down',
+            loading: 'mdi-empty',
+            noExpander: 'mdi-empty',
+            doc: 'mdi-info-circle',
+            docOpen: 'mdi-info-circle',
+            folder: 'mdi-cloud',
+            folderOpen: 'mdi-cloud'
           }
         },
         source: {url: '/api/plugins/ipam-tree/fancytree/'},
@@ -104,10 +114,11 @@ $(function(){ $("#tree").fancytree({
         //$tdList.eq(0).html(NET_TEMPLATE(node));
         $tdList.eq(1).html(DESCRIPTION_TEMPLATE(node.data.netbox));
         $tdList.eq(2).html(STATUS_TEMPLATE(node.data.netbox));
-        $tdList.eq(3).html(UTILIZATION_TEMPLATE(node.data.netbox));
+        $tdList.eq(3).html(ROLE_TEMPLATE(node.data.netbox));
+        $tdList.eq(4).html(UTILIZATION_TEMPLATE(node.data.netbox));
         if (node.data.netbox) {
-          $tdList.eq(4).text(std_text(node.data.netbox.site));
-          $tdList.eq(5).text(std_text(node.data.netbox.vlan));
+          $tdList.eq(5).text(std_text(node.data.netbox.site));
+          $tdList.eq(6).text(std_text(node.data.netbox.vlan));
         };
       },
   });

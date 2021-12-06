@@ -129,6 +129,8 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
                     'prefix': prefix,
                     'status': s.get_status_display(),
                     'status_class': s.get_status_class(),
+                    'role': s.get_role_display() if not prefix else None,
+                    'role_class': s.get_role_class() if not prefix else None,
                     'utilization': s.get_utilization() if prefix else None,
                     'vlan': str(s.vlan) if prefix else None,
                     'site': str(s.site) if prefix else None,
