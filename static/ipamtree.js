@@ -7,7 +7,7 @@ function STATUS_TEMPLATE(netbox) {
   if (netbox.free_ips) {
     return `<span class="badge bg-success">Available</span>`;
   }
-  return `<span class="badge bg-${netbox.status_class}">${netbox.status}</span>`;
+  return `<span class="badge bg-${netbox.status_color}">${netbox.status}</span>`;
 };
 
 function ROLE_TEMPLATE(netbox) {
@@ -17,7 +17,7 @@ function ROLE_TEMPLATE(netbox) {
   if (netbox.prefix || netbox.free_ips) {
     return '—'
   };
-  return `<span class="badge bg-${netbox.role_class}">${netbox.role}</span>`;
+  return `<span class="badge bg-${netbox.role_color}">${netbox.role}</span>`;
 };
 
 function UTILIZATION_TEMPLATE(netbox) {
