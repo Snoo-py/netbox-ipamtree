@@ -1,7 +1,7 @@
 import netaddr
 from rest_framework.response import Response
 from rest_framework import viewsets
-from ipam.models import Prefix, IPAddress
+from ipam.models import Prefix, IPAddress, FHRPGroup
 
 
 
@@ -117,9 +117,14 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
             device = None
             device_url = None
             if not prefix:
-                device = s.assigned_object.parent_object if s.assigned_object else None
-                device_url = device.get_absolute_url() if device else None
-                device = str(device)
+                assigned_object = s.assigned_object
+                if isinstance(assigned_object, FHRPGroup):
+                    device = assigned_object.description
+                    device_url = assigned_object.get_absolute_url()
+                elif assigned_object:
+                    device = assigned_object.parent_object
+                    device_url = device.get_absolute_url() if device else None
+                    device = str(device)
             tmp = {
                 'title': '<a href="%s">%s</a>' % (s.get_absolute_url(), str(s.prefix) if prefix else str(s.address)),
                 'key': s.id,
