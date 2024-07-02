@@ -10,7 +10,7 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
     )
 
     def list(self, request):
-        networks = self.get_direct_child(netaddr.IPNetwork("0/0"))
+        networks = self.get_direct_child(netaddr.IPNetwork("0.0.0.0/0"))
         networks += self.get_direct_child(netaddr.IPNetwork("::0/0"))
         data = self.get_fancytree(networks)
         return Response(data)
@@ -74,7 +74,7 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
 
     def get_direct_child(self, supernet, vrf=None):
         supernet_depth = -1
-        if supernet not in [netaddr.IPNetwork("0/0"), netaddr.IPNetwork("::0/0")]:
+        if supernet not in [netaddr.IPNetwork("0.0.0.0/0"), netaddr.IPNetwork("::0/0")]:
             supernet_prefix = Prefix.objects.get(prefix=str(supernet))
             supernet_depth = supernet_prefix.depth
 
@@ -99,7 +99,7 @@ class IpamTreeApi(viewsets.ReadOnlyModelViewSet):
             set(prefixes) | set(ips),
             key=lambda i: i.address.ip if isinstance(i, IPAddress) else i.prefix.ip,
         )
-        if supernet not in [netaddr.IPNetwork("0/0"), netaddr.IPNetwork("::0/0")]:
+        if supernet not in [netaddr.IPNetwork("0.0.0.0/0"), netaddr.IPNetwork("::0/0")]:
             child_nets = self.add_available_ipaddresses(supernet, child_nets)
         return child_nets
 
