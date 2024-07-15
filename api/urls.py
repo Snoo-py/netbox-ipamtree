@@ -1,6 +1,11 @@
-from rest_framework.routers import DefaultRouter
+"""
+Creates API endpoint URLs for the plugin.
+"""
+
+from netbox.api.routers import NetBoxRouter
 from .views import IpamTreeApi
 
-router = DefaultRouter()
-router.register('fancytree', IpamTreeApi, basename='ipam-tree')
+app_name = "ipam-tree"
+router = NetBoxRouter()
+router.register("fancytree", IpamTreeApi)
 urlpatterns = router.urls

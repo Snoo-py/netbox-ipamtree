@@ -7,7 +7,7 @@ function STATUS_TEMPLATE(netbox) {
   if (netbox.free_ips) {
     return `<span class="badge bg-success">Available</span>`;
   }
-  return `<span class="badge bg-${netbox.status_color}">${netbox.status}</span>`;
+  return `<span class="badge text-bg-${netbox.status_color}">${netbox.status}</span>`;
 };
 
 function ROLE_TEMPLATE(netbox) {
@@ -17,7 +17,7 @@ function ROLE_TEMPLATE(netbox) {
   if (netbox.prefix || netbox.free_ips) {
     return '—'
   };
-  return `<span class="badge bg-${netbox.role_color}">${netbox.role}</span>`;
+  return `<span class="badge text-bg-${netbox.role_color}">${netbox.role}</span>`;
 };
 
 function UTILIZATION_TEMPLATE(netbox) {
@@ -25,6 +25,9 @@ function UTILIZATION_TEMPLATE(netbox) {
     return '—'
   }
   if (!netbox.prefix) {
+    return '—'
+  };
+  if (netbox.status == "Available") {
     return '—'
   };
   var utilization = netbox.utilization;
@@ -45,7 +48,7 @@ function UTILIZATION_TEMPLATE(netbox) {
     data += '</div>'
   } else {
     data += '</div>'
-    data += `<span style="font-size: 12px;">${utilization}%</span>\r\n`
+    data += `<span class="progress-label"">${utilization}%</span>\r\n`
   };
   data += '</div>';
   return data;
@@ -76,7 +79,7 @@ $(function(){ $("#tree").fancytree({
         extensions: ["table", "glyph"],
         icon: true,
         table: {
-          indentation: 10,      // indent 20px per node level
+          indentation: 16,      // indent 20px per node level
           nodeColumnIdx: 0,     // render the node title into the 2nd column
         },
         glyph: {
@@ -108,10 +111,13 @@ $(function(){ $("#tree").fancytree({
        renderColumns: function(event, data) {
         var node = data.node,
         $tdList = $(node.tr).find(">td");
-        console.log(node.data);
-
-        // (index #0 is rendered by fancytree by adding the checkbox)
-        //$tdList.eq(0).html(NET_TEMPLATE(node));
+        $(node.tr).eq(0)
+        if (node.data.netbox && node.data.netbox.free_ips) {
+          $(node.tr).eq(0).attr("style", "background-color: #a3cfbb");
+        };
+        if (node.data.netbox && node.data.netbox.status == "Available") {
+          $(node.tr).eq(0).attr("style", "background-color: #a3cfbb");
+        };
         $tdList.eq(1).html(DESCRIPTION_TEMPLATE(node.data.netbox));
         $tdList.eq(2).html(STATUS_TEMPLATE(node.data.netbox));
         $tdList.eq(3).html(ROLE_TEMPLATE(node.data.netbox));
