@@ -111,7 +111,7 @@ class FancyIp(IPAddress, FancyObj):
 
     @property
     def fancy_url(self):
-        return self.get_absolute_url()
+        return f"/ipam/ip-addresses/{self.pk}"
 
     @property
     def fancy_text(self):
@@ -154,10 +154,10 @@ class FancyIp(IPAddress, FancyObj):
     def fancy_device_url(self):
         assigned_object = self.assigned_object
         if isinstance(assigned_object, FHRPGroup):
-            return assigned_object.get_absolute_url()
+            return f"/ipam/fhrp-groups/{assigned_object.pk}"
         elif assigned_object:
             device = assigned_object.parent_object
-            return device.get_absolute_url() if device else None
+            return f"/dcim/devices/{device.pk}" if device else None
         return None
 
 
@@ -180,7 +180,7 @@ class FancyPrefix(Prefix, FancyObj):
     @property
     def fancy_url(self):
         if self.status:
-            return self.get_absolute_url()
+            return f"/ipam/prefixes/{self.pk}"
         return ""
 
     @property
@@ -229,7 +229,7 @@ class FancyPrefix(Prefix, FancyObj):
 
     @property
     def fancy_site(self):
-        return str(self.site)
+        return str(self.scope)
 
     @property
     def fancy_description(self):
