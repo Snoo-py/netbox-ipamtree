@@ -1,0 +1,4 @@
+include LICENSE
+recursive-include ipamtree/templates *
+recursive-include ipamtree/static *
+include README.md
